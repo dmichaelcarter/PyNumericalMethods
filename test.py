@@ -51,6 +51,15 @@ def test():
     print("transpose(A) * x:")
     print(transpose(A)*x, "\n")
 
+    y = Vector(2)
+    y[0] = 1
+    y[1] = 1
+
+    print("\n")
+    print(x * y)
+    print(x)
+
+
 test()
 input()
 

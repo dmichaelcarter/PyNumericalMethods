@@ -58,6 +58,15 @@
 #  x[i]               Returns element x_i
 #                     0 <= i <= (n-1)
 #
+#  x + e              Returns a Vector object that is the sum of x and e
+#                     (e must be one of {Vector, int, float})
+#
+#  x - e              Returns a Vector object that is the difference of x and e
+#                     (e must be one of {Vector, int, float})
+#
+#  A * e              Returns a Vector object that is the product of x and e
+#                     (e must be one of {int, float})
+#
 #  VECTOR ATTRIBUTES:
 #
 #    x.n()              Returns the dimension of Vector x (number of rows or columns)
@@ -175,14 +184,14 @@ class Matrix():
             if not (matsSameDim(matrix, matrixOrNumber)):
                 raise MatrixError("(Matrix Addition) matrices have non-equal dimension")
             else:
-                matSum = matrix
+                matSum = copy(matrix)
                 for i in range(matrix.rows):
                     for j in range(matrix.cols):
                         matSum.data[i][j] += matrixOrNumber.data[i][j]
                 return matSum
             
         elif (isinstance(matrix, Matrix) and isinstance(matrixOrNumber, (int, float))):
-            matSum = matrix
+            matSum = copy(matrix)
             for i in range(matrix.rows):
                 for j in range(matrix.cols):
                     matSum.data[i][j] += matrixOrNumber
@@ -196,14 +205,14 @@ class Matrix():
             if not (matsSameDim(matrix, matrixOrNumber)):
                 raise MatrixError("(Matrix Subtraction) matrices have non-equal dimension")
             else:
-                matDiff = matrix
+                matDiff = copy(matrix)
                 for i in range(matrix.rows):
                     for j in range(matrix.cols):
                         matDiff.data[i][j] -= matrixOrNumber.data[i][j]
                 return matDiff
             
         elif (isinstance(matrix, Matrix) and isinstance(matrixOrNumber, (int, float))):
-            matDiff = matrix
+            matDiff = copy(matrix)
             for i in range(matrix.rows):
                 for j in range(matrix.cols):
                     matDiff.data[i][j] -= matrixOrNumber
@@ -223,7 +232,7 @@ class Matrix():
                         product.data[i][j] = dotProduct(matrix.getRow(i), matNumVec.getCol(j))
                 return product
         elif (isinstance(matrix, Matrix) and isinstance(matNumVec, (int, float))):
-            product = matrix
+            product = copy(matrix)
             for i in range(matrix.rows):
                 for j in range(matrix.rows):
                     product.data[i][j] *= matNumVec
@@ -232,7 +241,7 @@ class Matrix():
             if not (matrix.m() == matNumVec.n()):
                 raise MatrixError("(Matrix Multiplication) matrix row number must equal vector row number")
             else:
-                product = matrix
+                product = copy(matrix)
                 for i in range(matrix.rows):
                     for j in range(matrix.cols):
                         product.data[i][j] = matrix.data[i][j]*matNumVec.data[j]
@@ -314,6 +323,53 @@ class Vector():
 
     def __getitem__(self, index):
         return self.data[index]
+
+    def __add__(vector, vectorOrNumber):
+        if (isinstance(vector, Vector) and isinstance(vectorOrNumber, Vector)):
+            if not (vectsSameDim(vector, vectorOrNumber)):
+                raise VectorError("(Vector Addition) vectors have non-equal dimension")
+            else:
+                vectSum = copy(vector)
+                for j in range(vector.cols):
+                    vectSum.data[j] += vectorOrNumber.data[j]
+                return vectSum
+            
+        elif (isinstance(vector, Vector) and isinstance(vectorOrNumber, (int, float))):
+            vectSum = copy(vector)
+            for j in range(vector.cols):
+                    vectSum.data[j] += vectorOrNumber
+            return vectSum
+
+        else:
+            raise TypeError("(Vector Addition) must use Vector and one of {Vector, int, float}")
+
+    def __sub__(vector, vectorOrNumber):
+        if (isinstance(vector, Vector) and isinstance(vectorOrNumber, Vector)):
+            if not (vectsSameDim(vector, vectorOrNumber)):
+                raise VectorError("(Vector Addition) vectors have non-equal dimension")
+            else:
+                vectSum = copy(vector)
+                for j in range(vector.cols):
+                    vectSum.data[j] -= vectorOrNumber.data[j]
+                return vectSum
+            
+        elif (isinstance(vector, Vector) and isinstance(vectorOrNumber, (int, float))):
+            vectSum = copy(vector)
+            for j in range(vector.cols):
+                    vectSum.data[j] -= vectorOrNumber
+            return vectSum
+
+        else:
+            raise TypeError("(Vector Addition) must use Vector and one of {Vector, int, float}")
+
+    def __mul__(vector, number):
+        if not (isinstance(vector, Vector) and isinstance(number, (int, float))):
+            raise TypeError("(Vector Multiplication) must multiply by a scalar")
+        else:
+            vectProd = copy(vector)
+            for j in range(vector.cols):
+                vectProd.data[j] *= number
+            return vectProd
 
     def __eq__(self, other):
         flag = False
