@@ -88,6 +88,12 @@
 #
 #  B = copy(A)        Returns a Matrix or Vector object with the elements from A copied over
 #
+#  promptVector()     Asks the user to input vector elements, and returns a vector object
+#                     with those elements
+#
+#  promptMatrix()     Asks the user to input matrix elements, and returns a matrix object
+#                     with those elements
+#
 ###############################################################################################
 
 import math
@@ -144,6 +150,22 @@ def copy (matOrVect):
         return copy
     else:
         raise TypeError("(copy) method only operates on Matrix or Vector objects")
+
+def promptVector():
+    list = eval(input("Enter vector elements, separated by commas: "))
+    vector = Vector(len(list))
+    for i in range(vector.n()):
+        vector[i] = float(list[i])
+    return vector
+
+def promptMatrix():
+    size = eval(input("Enter matrix size: rows,cols = "))
+    matrix = Matrix(size[0],size[1])
+    for i in range(matrix.n()):
+        list = eval(input("Enter row " + str(i+1) + " of the matrix, separated by commas: "))
+        for j in range(matrix.m()):
+            matrix[i,j] = float(list[j])
+    return matrix
 
 
 class Error(Exception):
