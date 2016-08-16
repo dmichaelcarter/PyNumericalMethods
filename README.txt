@@ -1,4 +1,5 @@
 The following repository contains various numerical methods which I have implemented using Python.
+Python version: 3.4.3
 ----------------------------------------------------------------------------------------------------
 
 FILES:
