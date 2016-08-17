@@ -1,8 +1,8 @@
-# Jacobian Method #############################################################################
+# Gauss-Seidel Method #########################################################################
 # Python v3.4.3
 # ~~~~Created by David M Carter (2016)~~~~
 #
-# This program uses the Jacobian method to solve a linear system of equations
+# This program uses the Gauss-Seidel method to solve a linear system of equations
 # of the form Ax = b
 #
 # There must not be any entries A[i,i] equal to 0
@@ -14,7 +14,7 @@
 #           tol        desired tolerance
 #           maxIter    maximum number of iteration
 #
-# OUTPUT:
+# OUTPUT
 #                      number of iterations
 #           x          approximation of system solution (vector object returned)
 #
@@ -25,25 +25,26 @@
 from LinAlg import *
 import math
 
-def jacobi(A, b, x0, tol, maxIter):
-    k = 0
+def gs(A, b, x0, tol, maxIter):
+    iteration = 0
     x = Vector(b.n())
     xOld = copy(x0)
 
-    while (k < maxIter):
-        for i in range(x.n()):
+    while (iteration < maxIter):
+        for i in range(1, x.n() + 1):
             sum1 = 0.0
-            for j in range(x.n()):
-                if (j==i):
-                    continue
-                sum1 += (A[i,j] * xOld[j])
-            x[i] = (sum1*(-1.0) + b[i]) / A[i,i]
+            sum2 = 0.0
+            for j in range(1,i):
+                sum1 += (A[i-1,j-1] * x[j-1])
+            for k in range(i+1, x.n()+1):
+                sum2 += (A[i-1,k-1] * xOld[k-1])
+            x[i-1] = (sum1*(-1) - sum2 + b[i-1]) / A[i-1,i-1]
 
         if ((x - xOld).maxNorm() < tol):
-            print("Solution approximated in " + str(k) + " iterations.")
+            print("Solution approximated in " + str(iteration) + " iterations.")
             return x
 
-        k +=1
+        iteration +=1
 
         for i in range(x.n()):
             xOld[i] = x[i]
@@ -69,7 +70,7 @@ def main():
     maxIter = tolIter[1]
     print("\n")
 
-    x = jacobi(A, b, x0, tol, maxIter)
+    x = gs(A, b, x0, tol, maxIter)
     print(x)
     
 main()

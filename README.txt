@@ -10,7 +10,8 @@ FILES:
 
                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-"jacobi.py"  -- Approximate the solution to a linear system of equations
+"jacobi.py"         -- Approximate the solution to a linear system of equations
+"gauss-seidel.py"   -- faster linear system solver than jacobi.py
 
 
 ----------------------------------------------------------------------------------------------------
