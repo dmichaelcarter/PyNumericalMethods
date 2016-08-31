@@ -10,8 +10,9 @@ test runs   contains images showing the test programs in action.
 
                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+mapper.py         -- Map functions on the Cartesian Plane using Python Turtle Graphics
 jacobi.py         -- Approximate the solution to a linear system of equations
-gauss-seidel.py   -- faster linear system solver than jacobi.py
+gauss-seidel.py   -- Faster linear system solver than jacobi.py
 
 
 ----------------------------------------------------------------------------------------------------
