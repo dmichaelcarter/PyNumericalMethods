@@ -35,7 +35,7 @@ def main():
   ttl.speed(0)
 
 
-  #Begin drawing Cartesian plane
+  #Draw Cartesian plane
   #---------------------------------------------------------
   ttl.penup()
   #Create x axis
@@ -95,10 +95,14 @@ def main():
   #f(x)
   def f(x):
       return eval(func)
+
+  #Draw f(x)
   leftBound = -4
   rightBound = 4
   drawFunc(leftBound*scale, rightBound*scale, "green")
   ttl.penup()
+
+  #Title the graph
   ttl.goto(0, 410)
   ttl.color("green")
   ttl.write("f(x) = " + func, align="center", font=("Arial", 24, "normal"))
