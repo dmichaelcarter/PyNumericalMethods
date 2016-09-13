@@ -10,7 +10,7 @@
 #
 # OUTPUT:
 #           window     function mapped in window
-#                      function labeled in bottom left of window
+#                      function labeled
 #
 ###############################################################################################
 
